@@ -19,8 +19,7 @@ jobs:
       - name: Install Python deps
         run: |
           pip3 install --upgrade pip
-          pip3 install buildozer==1.5.0
-          pip3 install cython==0.29.33
+          pip3 install buildozer==1.5.0 cython==0.29.33
       - name: Install Android SDK
         run: |
           export ANDROID_HOME=$HOME/android-sdk
@@ -29,6 +28,9 @@ jobs:
           unzip -q cmdtools.zip -d $ANDROID_HOME/cmdline-tools-tmp
           mkdir -p $ANDROID_HOME/cmdline-tools/latest
           mv $ANDROID_HOME/cmdline-tools-tmp/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+          mkdir -p $ANDROID_HOME/tools/bin
+          ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager $ANDROID_HOME/tools/bin/sdkmanager
+          ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager $ANDROID_HOME/tools/bin/avdmanager
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
           mkdir -p $HOME/.android
           touch $HOME/.android/repositories.cfg
@@ -38,6 +40,7 @@ jobs:
           echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/25.2.9519653" >> $GITHUB_ENV
           echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/tools/bin" >> $GITHUB_PATH
           echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
           echo "$ANDROID_HOME/build-tools/33.0.2" >> $GITHUB_PATH
       - name: Build APK
