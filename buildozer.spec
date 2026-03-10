@@ -12,8 +12,7 @@ android.permissions = ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,READ_PHONE_STA
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
-android.sdk = 33
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 
 [buildozer]
 log_level = 2
